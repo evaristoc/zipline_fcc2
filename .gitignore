@@ -1,6 +1,7 @@
 node_modules
 public
 script1.sh
+zipline_fcc2.komodoproject
 .tmp
 .idea
 client/bower_components
