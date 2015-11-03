@@ -1,5 +1,6 @@
 node_modules
 public
+script1.sh
 .tmp
 .idea
 client/bower_components
