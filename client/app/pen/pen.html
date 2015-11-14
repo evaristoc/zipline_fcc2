@@ -4,12 +4,39 @@ This is the pen view.
 <div class="row">
 <div class="col-lg-12">
 <h1 class="page-header">PENS</h1>
+<form>
+<div class="form-group">
+<label >General Search</label>
+<input type="text" style="width:300px" ng-model="search" class="form-control" placeholder="Search">
+</div>
+</form>
 <table class="table table-striped table-bordered">
 <tr>
-<th>#</th><th>pen</th><th>title</th><th>views</th><th>comments</th><th>hearts</th><th>created</th><th>modified</th><th>tags</th>
+<th ng-click="sort('owner')"><p>owner</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='owner'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th>pen</th>
+<th>title</th>
+<th ng-click="sort('views')"><p>views</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='views'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th ng-click="sort('comments')"><p>comments</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='comments'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th ng-click="sort('hearts')"><p>hearts</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='hearts'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th ng-click="sort('created')"><p>created</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='created'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th ng-click="sort('modified')"><p>modified</p>
+<p><span class="glyphicon sort-icon" ng-show="sortKey=='modified'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></p>
+</th>
+<th>tags</th>
 </tr>
-<tr class="allpens" ng-repeat="pen in awesomePens">
-<td>index?</td>
+<!--<tr class="allpens" ng-repeat="pen in awesomePens|orderBy:sortKey:reverse|filter:search">-->
+<tr class="allpens" dir-paginate="pen in awesomePens|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">-
+<td>{{pen.owner}}</td>
 <td><a href="{{pen.uri}}" target="_blank">
 <span class="user-name">{{pen.uri}}</span></a></td>
 <td class="count"><strong>{{pen.title}}</strong></td>
@@ -23,18 +50,21 @@ This is the pen view.
 <td class="count">{{pen.hearts}}</td>
 <!--http://www.angulartutorial.net/2014/04/date-filtering-and-formatting-in.html-->
 <!--http://stackoverflow.com/questions/22392328/how-to-format-date-in-angularjs-->
-<td class="count">{{pen.created | date:'MM-dd-yyyy'}}</td>
-<td class="count">{{pen.modified | date:'MM-dd-yyyy'}}</td>
+<td class="count">{{pen.created | date:'dd-MM-yyyy'}}</td>
+<td class="count">{{pen.modified | date:'dd-MM-yyyy'}}</td>
 <!--http://stackoverflow.com/questions/20942878/angularjs-use-a-function-in-a-controller-to-return-data-from-a-service-to-be-use-->
 <td class="count">
 <!--http://stackoverflow.com/questions/8289805/getting-rid-of-bullet-points-from-ul-->
-<div ng-repeat="tag in findTgs(pen.tags)">
-<p>{{tag.tag}}</p>    
+<!--<div ng-repeat="tag in findTgs(pen.tags)">-->
+<!--<p>{{tag.tag}}</p> -->  
+<div ng-repeat="tag in pen.tags|orderBy:tag">
+<p>{{tag}}</p> 
 </div>
 </td>
 <!--<td class="refresh"><button class="btn btn-default" ng-click="refreshUser(camper.username)"><i class="glyphicon glyphicon-refresh"></i></button></td>
 </tr>-->
 </table>
+<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" ></dir-pagination-controls>
 <!--<ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="">
 
 <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>

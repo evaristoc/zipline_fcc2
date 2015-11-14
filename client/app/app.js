@@ -5,7 +5,8 @@ angular.module('ziplineFcc2App', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularUtils.directives.dirPagination'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

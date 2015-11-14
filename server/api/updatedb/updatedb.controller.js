@@ -14,7 +14,7 @@ exports.index = function(req, res){
     console.log('inside index...');
     var pagenum = 1;
     var allpendata = [];
-    while (pagenum < 2) {
+    while (pagenum < 6) {
         var options = {
             headers: {'User-Agent': ENV_UA},
             uri:"http://codepen.io/search/pens/?limit=all&page="+String(pagenum)+"&q=freecodecamp",
@@ -67,30 +67,33 @@ exports.index = function(req, res){
                             console.log(owner, title, dates, tags, stats);
                             allpendata.push({owner:owner, title:title, dates:dates, tags:tags, stats:stats});
                             
-                            var tagsid = [];
-                            tags.forEach(function(tg){
-                                Tags.findByName(tg, function(err, iftag){
-                                    if (err) throw err;
-                                    console.log('inside the tag creation ', tg, iftag);
-                                    console.log(iftag.length);
-                                    //console.log('iftag is empty list with object (document!) type');
-                                    // OJO: create throws a DOCUMENT; my method findByName throws an OBJECT as LIST of DOCUMENTS!!
-                                    if (iftag.length == 0) {
-                                        Tags.create({tag:tg}, function(err, ntg){
-                                            console.log('creating tag ', ntg);
-                                            tagsid.push(ntg._id);
-                                        })
-                                    }else{
-                                        console.log('using existing tag ', iftag);
-                                        tagsid.push(iftag[0]._id);
-                                    }
-                                })
-                            });
+                //////////// getting rid of the tag collection            
+                            //var tagsid = [];
+                            //tags.forEach(function(tg){
+                            //    Tags.findByName(tg, function(err, iftag){
+                            //        if (err) throw err;
+                            //        console.log('inside the tag creation ', tg, iftag);
+                            //        console.log(iftag.length);
+                            //        //console.log('iftag is empty list with object (document!) type');
+                            //        // OJO: create throws a DOCUMENT; my method findByName throws an OBJECT as LIST of DOCUMENTS!!
+                            //        if (iftag.length == 0) {
+                            //            Tags.create({tag:tg}, function(err, ntg){
+                            //                console.log('creating tag ', ntg);
+                            //                tagsid.push(ntg._id);
+                            //            })
+                            //        }else{
+                            //            console.log('using existing tag ', iftag);
+                            //            tagsid.push(iftag[0]._id);
+                            //        }
+                            //    })
+                            //});
                             
                             var zip = {
+                                owner:link.split("/")[3],
                                 title:title,
                                 uri:link,
-                                tags: tagsid,
+                                //tags: tagsid, //<--- getting rid of the tag collection...
+                                tags: tags,
                                 created:new Date(dates[0]),
                                 modified:new Date(dates[1]),
                                 views:Number(stats[0]),

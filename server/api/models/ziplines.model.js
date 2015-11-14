@@ -29,12 +29,14 @@ module.exports.Tags = mongoose.model('Tags', TagsSchema);
 //re.test(tag, 'abcdedfgte') //true
 
 var ZiplinesSchema = new Schema({
+  owner:String,
   uri: {type:String, required: true, unique:true},
   title: String,
   created: {type: Date},
   modified:{type: Date},
   //tags: {type:[], get: getTags, set: setTags},
-  tags: [{type:mongoose.Schema.Types.ObjectId, ref: 'Tags'}],
+  //tags: [{type:mongoose.Schema.Types.ObjectId, ref: 'Tags'}],
+  tags:[],
   views: Number,
   comments: Number,
   hearts: Number,

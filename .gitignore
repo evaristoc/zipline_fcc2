@@ -7,4 +7,5 @@ zipline_fcc2.komodoproject
 client/bower_components
 dist
 /server/config/local.env.js
+/server/api/newtests
 npm-debug.log
