@@ -1,5 +1,5 @@
 .thing-form {
-    margin: 20px 0;
+    margin: 100px 0;
 }
 
 #banner {
@@ -31,4 +31,13 @@
 
 .navbar-text {
     margin-left: 15px;
+}
+
+li {
+    font-size: 20px;
+}
+
+.btt {
+    margin-top: 30px;
+    margin-left:50%;
 }

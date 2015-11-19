@@ -5,6 +5,9 @@ angular.module('ziplineFcc2App')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+        'title': 'Pen Index',
+        'link':'/pen'
     }];
 
     $scope.isCollapsed = true;
